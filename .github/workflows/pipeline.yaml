@@ -9,4 +9,6 @@ jobs:
   checkout_push:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello World"
+      - run: |
+					echo "Hello World"
+					echo "Đây là VETC"
