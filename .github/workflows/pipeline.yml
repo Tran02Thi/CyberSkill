@@ -1,0 +1,9 @@
+name: devops_noods
+on:
+        push:
+                branches: [main]
+jobs:
+        checkout_push
+                runs-on:  ubuntu-latest
+                steps: 
+                        - run:  echo "Hello World"
