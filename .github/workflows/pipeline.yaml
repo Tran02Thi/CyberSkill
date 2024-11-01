@@ -1,21 +1,22 @@
 name: devops_noods
 
 on:
-  push:
-    branches:
-      - feature/devops
+	push:
+		branches:
+			- feature/devops
 
 jobs:
-  build_and_test:
-    runs-on: ubuntu-latest
+	build_and_test:
+		runs-on: ubuntu-latest
 
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: feature/devops
+		steps:
+			- name: checkout code
+				uses: actions/checkout@v2
+				with:
+					ref: feature/devops
 
-      - name: list files
-        run: |
-          echo "Liệt kê các file"
-          ls -R
+			- name: list files
+				run: |
+					echo "Liệt kê các file"
+					ls -R
+                                                        
