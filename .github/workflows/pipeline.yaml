@@ -17,7 +17,7 @@ jobs:
 
       - name: show api key
         run: |
-          echo "API Key: ${{API}}"
+          echo "API Key: ${{serects.API}}"
 
   deploy:
     runs-on: ubuntu-latest
