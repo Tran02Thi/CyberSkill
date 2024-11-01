@@ -10,15 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout code
-        uses: actions/checkout@v2
-        with:
-          ref: feature/devops
+      # - name: checkout code
+      #   uses: actions/checkout@v2
+      #   with:
+      #     ref: feature/devops
 
-      - name: list files
+      - name: show api key
         run: |
-          echo "Liệt kê các file"
-          ls -R
+          echo "API Key: ${{API}}"
 
   deploy:
     runs-on: ubuntu-latest
