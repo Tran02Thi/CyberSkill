@@ -16,6 +16,6 @@ jobs:
           ref: feature/devops
 
       - name: list files
-      run: |
-        echo "Liệt kê các file"
-        ls -R 
+        run: |
+          echo "Liệt kê các file"
+          ls -R
