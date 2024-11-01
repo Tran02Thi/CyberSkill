@@ -1,7 +1,7 @@
 name: devops_noods
 
 on:
-	push:
+    push:
 		branches:
 			- feature/devops
 
@@ -19,4 +19,3 @@ jobs:
 				run: |
 					echo "Liệt kê các file"
 					ls -R
-                                                        
