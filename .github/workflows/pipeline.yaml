@@ -2,6 +2,8 @@ name: devops_noods
 
 on: 
   push:
+    path:
+      - '!README.md'
     branches:
       - feature/devops
 
