@@ -20,6 +20,16 @@ jobs:
         run: |
           echo "API Key: ${{secrets.API}} and Version: ${{env.JAVA_VERSION}}"
           echo "Docker user: ${{vars.DOCKER_USER}}"
+  scripts:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: run scripts
+      run: |
+          chmod +x .github/scripts/custom.sh
+          .github/scripts/custom.sh
+      shell: bash
+
 
   deploy:
     runs-on: ubuntu-latest
