@@ -25,10 +25,10 @@ jobs:
     
     steps:
       - name: run scripts
-      run: |
+        run: |
           chmod +x .github/scripts/custom.sh
           .github/scripts/custom.sh
-      shell: bash
+        shell: bash
 
 
   deploy:
