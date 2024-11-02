@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: run scripts
         run: |
-          ls -R ././.github
+          chmod +x .github/scripts/custom.sh
         shell:  bash
 
 
