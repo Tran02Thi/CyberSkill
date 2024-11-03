@@ -5,7 +5,7 @@ for pdf_file in *.pdf;
 
 		mkdir -p "$folder" 
 
-		pdftotext "$pdf_path" temp.txt
+		pdftotext "$pdf_file" temp.txt
 
 		tr -c '[:alpha:]' '[\n*]' < temp.txt | grep '^[a-zA-Z]\+$' | sort -u | while read -r word; 
 			do

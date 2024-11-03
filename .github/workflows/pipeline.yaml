@@ -1,43 +1,3 @@
-# name: devops_noods
-
-# on: 
-#   push:
-#     branches:
-#       - feature/devops
-
-# jobs:
-#   build_and_test:
-#     runs-on: ubuntu-latest
-#     env:
-#             JAVA_VERSION: '21'
-#     steps:
-#       - name: checkout code
-#         uses: actions/checkout@v2
-#         with:
-#           ref: feature/devops
-
-#       - name: show api key and version JAVA
-#         run: |
-#           echo "API Key: ${{secrets.API}} and Version: ${{env.JAVA_VERSION}}"
-#           echo "Docker user: ${{vars.DOCKER_USER}}"
-#   scripts:
-#     runs-on: ubuntu-latest
-    
-#     steps:
-#       - name: run scripts
-#         run: |
-#           chmod +x .github/scripts/custom.sh
-#         shell:  bash
-
-
-#   deploy:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: checkout deploy
-#         run: |
-#           echo "Deploy thành công"
-
 name: devops_noods
 
 on: 
@@ -49,31 +9,71 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     env:
-      JAVA_VERSION: '21'
+            JAVA_VERSION: '21'
     steps:
-      - name: Checkout code
+      - name: checkout code
         uses: actions/checkout@v2
+        with:
+          ref: feature/devops
 
-      - name: Show API key and Java version
+      - name: show api key and version JAVA
         run: |
-          echo "API Key: ${{ secrets.API }} and Version: ${{ env.JAVA_VERSION }}"
-          echo "Docker user: ${{ vars.DOCKER_USER }}"
-
+          echo "API Key: ${{secrets.API}} and Version: ${{env.JAVA_VERSION}}"
+          echo "Docker user: ${{vars.DOCKER_USER}}"
   scripts:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run custom script
+      - name: run scripts
         run: |
-          chmod +x .github/scripts/custom.sh
-          ./.github/scripts/custom.sh
-        shell: bash
+          echo "eho"
+        shell:  bash
+
 
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Deploy step
+      - name: checkout deploy
         run: |
           echo "Deploy thành công"
+
+# name: devops_noods
+
+# on: 
+#   push:
+#     branches:
+#       - feature/devops
+
+# jobs:
+#   build_and_test:
+#     runs-on: ubuntu-latest
+#     env:
+#       JAVA_VERSION: '21'
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Show API key and Java version
+#         run: |
+#           echo "API Key: ${{ secrets.API }} and Version: ${{ env.JAVA_VERSION }}"
+#           echo "Docker user: ${{ vars.DOCKER_USER }}"
+
+#   scripts:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Run custom script
+#         run: |
+#           chmod +x .github/scripts/custom.sh
+#           ./.github/scripts/custom.sh
+#         shell: bash
+
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Deploy step
+#         run: |
+#           echo "Deploy thành công"
