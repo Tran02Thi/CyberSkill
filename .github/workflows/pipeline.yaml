@@ -6,9 +6,9 @@ on:
       - main
 
 jobs:
-  checkout_push:
+  build_and_test:
     runs-on: ubuntu-latest
+
     steps:
-      - run: |
-					echo "Hello World"
-					echo "Đây là VETC"
+      - name: checkout code
+        uses: actions/checkout@v2
