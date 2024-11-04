@@ -30,9 +30,11 @@ jobs:
 
       - name: Commit and push changes to feature/devops branch
         run: |
+          git config --global user.name "ThiTV"
+          git config --global user.email "ThiTV@vetc.com.vn"
           git add .
           git commit -m "Run script.sh and update results in feature/devops branch" || echo "No changes to commit"
-          git push origin feature/devops
+          git push origin feature/devops 
   # scripts:
   #   runs-on: ubuntu-latest
     
