@@ -5,7 +5,7 @@ on:
     branches:
       - feature/devops
     paths:
-      - 'session2/**'
+      - 'seasson2/**'
 
 
 jobs:
