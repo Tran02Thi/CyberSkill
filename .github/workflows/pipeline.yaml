@@ -7,9 +7,6 @@ on:
     paths:
       - 'seasson2/**'
 
-permissions:
-  contents: write
-
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
@@ -35,7 +32,7 @@ jobs:
           git config --global user.name "ThiTV"
           git config --global user.email "ThiTV@vetc.com.vn"
           git add .
-          git commit -m "Run script.sh and update results in feature/devops branch" || echo "No changes to commit"
+          git commit -m "upload file pdf" || echo "No changes to commit"
           git push origin feature/devops 
 
         env:
