@@ -11,18 +11,23 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-    env:
-            JAVA_VERSION: '21'
+
     steps:
-      - name: checkout code
-        uses: actions/checkout@v2
+      - name: Check out the repository
+        uses: actions/checkout@v3
         with:
           ref: feature/devops
 
-      - name: show api key and version JAVA
+      - name: Set up dependencies
         run: |
-          echo "API Key: ${{secrets.API}} and Version: ${{env.JAVA_VERSION}}"
-          echo "Docker user: ${{vars.DOCKER_USER}}"
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils 
+
+      - name: Run script.sh
+        run: |
+          chmod +x script.sh
+          ../../script.sh "seasson2" 
+
   # scripts:
   #   runs-on: ubuntu-latest
     
