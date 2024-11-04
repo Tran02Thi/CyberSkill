@@ -25,8 +25,7 @@ jobs:
 
       - name: Run script.sh
         run: |
-          chmod +x ../../../scripts.sh
-          ../../../scripts.sh "seasson2" 
+          ls
 
   # scripts:
   #   runs-on: ubuntu-latest
