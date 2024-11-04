@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - feature/devops
-    paths:
-      - 'session2/**'
+    # paths:
+    #   - 'session2/**'
 
 
 jobs:
