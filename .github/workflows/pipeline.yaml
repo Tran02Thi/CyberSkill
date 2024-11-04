@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feature/devops
+    paths:
+      - 'session2/**'
+
 
 jobs:
   build_and_test:
@@ -20,14 +23,14 @@ jobs:
         run: |
           echo "API Key: ${{secrets.API}} and Version: ${{env.JAVA_VERSION}}"
           echo "Docker user: ${{vars.DOCKER_USER}}"
-  scripts:
-    runs-on: ubuntu-latest
+  # scripts:
+  #   runs-on: ubuntu-latest
     
-    steps:
-      - name: run scripts
-        run: |
-          chmod +x .github/scripts/custom.sh
-        shell:  bash
+  #   steps:
+  #     - name: run scripts
+  #       run: |
+  #         chmod +x .github/scripts/custom.sh
+  #       shell:  bash
 
 
   deploy:
