@@ -9,34 +9,34 @@ on:
       - 'index.html'
 
 jobs:
-  # build_and_test:
-  #   runs-on: ubuntu-latest
+  build_and_test:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Check out the repository
-  #       uses: actions/checkout@v3
-  #       with:
-  #         ref: feature/devops
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+        with:
+          ref: feature/devops
 
-  #     - name: Set up dependencies
-  #       run: |
-  #         sudo apt-get update
-  #         sudo apt-get install -y poppler-utils
+      - name: Set up dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
 
-  #     - name: Run script.sh
-  #       run: |
-  #         chmod +x scripts.sh
-  #         bash scripts.sh seasson2
+      - name: Run script.sh
+        run: |
+          chmod +x scripts.sh
+          bash scripts.sh seasson2
 
-  #     - name: Commit and push changes to feature/devops branch
-  #       run: |
-  #         git config --global user.name "ThiTV"
-  #         git config --global user.email "ThiTV@vetc.com.vn"
-  #         git add .
-  #         git commit -m "upload file pdf" || echo "No changes to commit"
-  #         git push origin feature/devops
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      - name: Commit and push changes to feature/devops branch
+        run: |
+          git config --global user.name "ThiTV"
+          git config --global user.email "ThiTV@vetc.com.vn"
+          git add .
+          git commit -m "upload file pdf" || echo "No changes to commit"
+          git push origin feature/devops
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,37 +62,3 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             sudo service nginx reload
-
-
-# jobs:
-#   build_and_test:
-#     runs-on: ubuntu-latest
-#     env:
-#       JAVA_VERSION: '21'
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-
-#       - name: Show API key and Java version
-#         run: |
-#           echo "API Key: ${{ secrets.API }} and Version: ${{ env.JAVA_VERSION }}"
-#           echo "Docker user: ${{ vars.DOCKER_USER }}"
-
-#   scripts:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-
-#       - name: Run custom script
-#         run: |
-#           chmod +x .github/scripts/custom.sh
-#           ./.github/scripts/custom.sh
-#         shell: bash
-
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Deploy step
-#         run: |
-#           echo "Deploy thành công"
