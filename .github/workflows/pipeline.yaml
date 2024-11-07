@@ -6,6 +6,7 @@ on:
       - feature/devops
     paths:
       - 'seasson2/**'
+      - 'index.html'
 
 jobs:
   build_and_test:
