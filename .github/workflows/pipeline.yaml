@@ -36,7 +36,7 @@ jobs:
          git commit -m "upload file pdf" || echo "No changes to commit"
          git push origin feature/devops
        env:
-         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+         GITHUB_TOKEN: ${{ secrets.KEY_DEPLOY }}
 
   deploy:
     runs-on: ubuntu-latest
