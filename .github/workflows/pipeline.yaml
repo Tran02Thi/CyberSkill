@@ -1,23 +1,25 @@
-# name: devops_noods
+name: devops_noods
 
-# on: 
-#   push:
-#     branches:
-#       - feature/devops
-#     paths:
-#       - 'seasson2/**'
-#       - 'index.html'
+on: 
+  push:
+    branches:
+      - main
 
-# jobs:
-#   # build_and_test:
-#   #   runs-on: ubuntu-latest
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+        with:
+          ref: main
 
-#   #   steps:
-#   #     - name: Check out the repository
-#   #       uses: actions/checkout@v3
-#   #       with:
-#   #         ref: feature/devops
+      - name: Install sshpass
+        run: sudo apt-get install sshpass  
 
+      - name: Connect to server via SSH using password
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no user@139.180.158.237 "echo 'Connected successfully!'"
 #   #     - name: Set up dependencies
 #   #       run: |
 #   #         sudo apt-get update
