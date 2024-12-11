@@ -31,4 +31,12 @@
 # 	echo "Không có file PDF nào trong thư mục '$FOLDER_NAME'."
 # fi
 
-echo "Hello DevOps"
+cd cyberskill
+
+echo "Running docker-compose up -d..."
+
+sudo docker-compose up -d
+
+sudo docker ps
+
+echo "Docker containers are up and running!"
