@@ -33,6 +33,8 @@
 
 echo "Running docker-compose up -d..."
 
+cd monitoring
+
 sudo docker compose up -d
 
 sudo docker ps
