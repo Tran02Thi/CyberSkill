@@ -1,22 +1,18 @@
-# name: devops_noods
+name: devops_noods
 
-# on: 
-#   push:
-#     branches:
-#       - feature/devops
-#     paths:
-#       - 'seasson2/**'
-#       - 'index.html'
+on: 
+  push:
+    branches:
+      - main
 
-# jobs:
-#   # build_and_test:
-#   #   runs-on: ubuntu-latest
-
-#   #   steps:
-#   #     - name: Check out the repository
-#   #       uses: actions/checkout@v3
-#   #       with:
-#   #         ref: feature/devops
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+        with:
+          ref: main
 
 #   #     - name: Set up dependencies
 #   #       run: |
