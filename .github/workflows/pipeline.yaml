@@ -34,15 +34,24 @@ jobs:
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$USER_HOST"@139.180.158.237 << 'EOF'
             
             if [ ! -d "cyberskill" ]; then
-              echo "Repository does not exist, cloning..."
-              git clone https://github.com/Tran02Thi/CyberSkill.git /cyberskill
+              echo "Creating directory cyberskill"
+              mkdir -p cyberskill
+            fi
+            echo "Setting permissions for cyberskill"
+            chmod -R 755 cyberskill
+            chown -R $USER:$USER cyberskill
+
+            # Check if the repo is already cloned, if not clone it
+            if [ ! -d "cyberskill/.git" ]; then
+              echo "Repository not found, cloning..."
+              git clone https://github.com/Tran02Thi/CyberSkill.git cyberskill
             else
-              echo "Repository exists, pulling latest changes..."
+              echo "Repository found, pulling latest changes..."
               cd cyberskill
               git reset --hard
               git pull origin main
             fi
+            
             echo "Code updated successfully!"
           
           EOF
-              
