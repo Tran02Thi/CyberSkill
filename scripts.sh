@@ -35,7 +35,7 @@ echo "Running docker-compose up -d..."
 
 cd monitoring
 
-sudo docker compose up -d
+sudo docker stack deploy -c docker-compose.yml lemp
 
 sudo docker ps
 
