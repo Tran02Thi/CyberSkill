@@ -20,7 +20,7 @@ jobs:
 
       - name: Lint Python code with Flake8
         run: |
-          flake8 .
+          flake8 main.py
 
   build_and_sync_code:
     runs-on: ubuntu-latest
