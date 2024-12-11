@@ -82,8 +82,8 @@ jobs:
             sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$USER_HOST"@139.180.158.237 << 'EOF'
               echo "Starting deployment..."
 
-              cd /cyberskill
-              
+              cd cyberskill
+
               chmod +x scripts.sh
               ./scripts.sh
 
