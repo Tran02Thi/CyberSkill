@@ -31,11 +31,9 @@
 # 	echo "Không có file PDF nào trong thư mục '$FOLDER_NAME'."
 # fi
 
-cd cyberskill
-
 echo "Running docker-compose up -d..."
 
-sudo docker-compose up -d
+sudo docker compose up -d
 
 sudo docker ps
 
