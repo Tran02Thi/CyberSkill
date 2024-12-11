@@ -32,12 +32,17 @@ jobs:
           USER_HOST: ${{ secrets.USER_HOST }}
         run: |
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$USER_HOST"@139.180.158.237 << 'EOF'
-            echo "SSH connection successful!"
             
-            git clone https://github.com/Tran02Thi/CyberSkill.git cyberskill && cd cyberskill
-            
-            git reset --hard
-            git pull origin main
+            if [ ! -d "cyberskill" ]; then
+              echo "Repository does not exist, cloning..."
+              git clone https://github.com/Tran02Thi/CyberSkill.git /cyberskill
+            else
+              echo "Repository exists, pulling latest changes..."
+              cd cyberskill
+              git reset --hard
+              git pull origin main
+            fi
             echo "Code updated successfully!"
-          EOF
           
+          EOF
+              
