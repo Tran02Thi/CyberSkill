@@ -22,7 +22,7 @@ jobs:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
           USER_HOST: ${{ secrets.USER_HOST }}
         run: |
-          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$USER_HOST"@139.180.158.237" \
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$USER_HOST"@139.180.158.237 "exit" \
           && echo "Connection successful!" \
           || (echo "Connection failed!" && exit 1)
       
