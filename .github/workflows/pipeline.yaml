@@ -1,98 +1,98 @@
-name: devops_noods
+# name: devops_noods
 
-on: 
-  push:
-    branches:
-      - feature/devops
-    paths:
-      - 'seasson2/**'
-      - 'index.html'
-
-jobs:
-  # build_and_test:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Check out the repository
-  #       uses: actions/checkout@v3
-  #       with:
-  #         ref: feature/devops
-
-  #     - name: Set up dependencies
-  #       run: |
-  #         sudo apt-get update
-  #         sudo apt-get install -y poppler-utils
-
-  #     - name: Run script.sh
-  #       run: |
-  #         chmod +x scripts.sh
-  #         bash scripts.sh seasson2
-
-  #     - name: Commit and push changes to feature/devops branch
-  #       run: |
-  #         git config --global user.name "ThiTV"
-  #         git config --global user.email "ThiTV@vetc.com.vn"
-  #         git add .
-  #         git commit -m "upload file pdf" || echo "No changes to commit"
-  #         git push origin feature/devops
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out the code
-        uses: actions/checkout@v3
-
-      - name: Deploy to EC2 instance
-        uses: easingthemes/ssh-deploy@v2.1.5
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SOURCE: "./index.html"
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          TARGET: ${{ secrets.TARGET_DIR }}
-
-      - name: Execute remote SSH commands
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST_DNS }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            sudo service nginx reload
-
+# on: 
+#   push:
+#     branches:
+#       - feature/devops
+#     paths:
+#       - 'seasson2/**'
+#       - 'index.html'
 
 # jobs:
-#   build_and_test:
-#     runs-on: ubuntu-latest
-#     env:
-#       JAVA_VERSION: '21'
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
+#   # build_and_test:
+#   #   runs-on: ubuntu-latest
 
-#       - name: Show API key and Java version
-#         run: |
-#           echo "API Key: ${{ secrets.API }} and Version: ${{ env.JAVA_VERSION }}"
-#           echo "Docker user: ${{ vars.DOCKER_USER }}"
+#   #   steps:
+#   #     - name: Check out the repository
+#   #       uses: actions/checkout@v3
+#   #       with:
+#   #         ref: feature/devops
 
-#   scripts:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
+#   #     - name: Set up dependencies
+#   #       run: |
+#   #         sudo apt-get update
+#   #         sudo apt-get install -y poppler-utils
 
-#       - name: Run custom script
-#         run: |
-#           chmod +x .github/scripts/custom.sh
-#           ./.github/scripts/custom.sh
-#         shell: bash
+#   #     - name: Run script.sh
+#   #       run: |
+#   #         chmod +x scripts.sh
+#   #         bash scripts.sh seasson2
+
+#   #     - name: Commit and push changes to feature/devops branch
+#   #       run: |
+#   #         git config --global user.name "ThiTV"
+#   #         git config --global user.email "ThiTV@vetc.com.vn"
+#   #         git add .
+#   #         git commit -m "upload file pdf" || echo "No changes to commit"
+#   #         git push origin feature/devops
+#   #       env:
+#   #         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
 
 #   deploy:
 #     runs-on: ubuntu-latest
+
 #     steps:
-#       - name: Deploy step
-#         run: |
-#           echo "Deploy thành công"
+#       - name: Check out the code
+#         uses: actions/checkout@v3
+
+#       - name: Deploy to EC2 instance
+#         uses: easingthemes/ssh-deploy@v2.1.5
+#         env:
+#           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+#           SOURCE: "./index.html"
+#           REMOTE_HOST: ${{ secrets.HOST_DNS }}
+#           REMOTE_USER: ${{ secrets.USERNAME }}
+#           TARGET: ${{ secrets.TARGET_DIR }}
+
+#       - name: Execute remote SSH commands
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.HOST_DNS }}
+#           username: ${{ secrets.USERNAME }}
+#           key: ${{ secrets.EC2_SSH_KEY }}
+#           script: |
+#             sudo service nginx reload
+
+
+# # jobs:
+# #   build_and_test:
+# #     runs-on: ubuntu-latest
+# #     env:
+# #       JAVA_VERSION: '21'
+# #     steps:
+# #       - name: Checkout code
+# #         uses: actions/checkout@v2
+
+# #       - name: Show API key and Java version
+# #         run: |
+# #           echo "API Key: ${{ secrets.API }} and Version: ${{ env.JAVA_VERSION }}"
+# #           echo "Docker user: ${{ vars.DOCKER_USER }}"
+
+# #   scripts:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - name: Checkout code
+# #         uses: actions/checkout@v2
+
+# #       - name: Run custom script
+# #         run: |
+# #           chmod +x .github/scripts/custom.sh
+# #           ./.github/scripts/custom.sh
+# #         shell: bash
+
+# #   deploy:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - name: Deploy step
+# #         run: |
+# #           echo "Deploy thành công"
