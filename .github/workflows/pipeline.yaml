@@ -19,7 +19,7 @@ jobs:
 
       - name: Connect to server via SSH using password
         run: |
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no user@139.180.158.237 "echo 'Connected successfully'"
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no "${{ secrets.USER_HOST }}"@139.180.158.237 "echo 'Connected successfully'"
 #   #     - name: Set up dependencies
 #   #       run: |
 #   #         sudo apt-get update
