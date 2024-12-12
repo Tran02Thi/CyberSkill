@@ -14,7 +14,7 @@ services:
     depends_on:
       - prometheus
     networks:
-      - monitoring
+      - infra
     deploy:
       replicas: 2
       placement:
@@ -31,7 +31,7 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
-      - monitoring
+      - infra
     deploy:
       replicas: 2
       placement:
@@ -46,7 +46,7 @@ services:
         - ./backend:/app
         - /app/node_modules
     networks:
-        - monitoring
+        - infra
     deploy:
       replicas: 2
       placement:
@@ -89,7 +89,7 @@ services:
     ports:
       - '9090:9090'
     networks:
-      - monitoring
+      - infra
     deploy:
       replicas: 2
       placement:
@@ -108,7 +108,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/local/bin/docker:/usr/local/bin/docker
     networks:
-      - monitoring
+      - infra
     deploy:
       replicas: 2
       placement:
@@ -116,7 +116,7 @@ services:
 
 
 networks:
-  monitoring:
+  infra:
 
 volumes:
   grafana-data:
