@@ -3,6 +3,7 @@
 set -e
 
 VERSION_APP=1.0
+STACK_NAME=lemp
 
 # FOLDER_NAME="$1"
 
@@ -36,11 +37,13 @@ VERSION_APP=1.0
 # Build NodeJs 
 sudo docker build --rm -t app:$VERSION_APP ./monitoring/backend/ || exit 1
 
+docker stack rm $STACK_NAME
+
 echo "Build docker stack ..."
 
 cd monitoring
 
-sudo docker stack deploy -c docker-compose.yml lemp
+sudo docker stack deploy -c docker-compose.yml $STACK_NAME
 
 sudo docker ps
 
