@@ -1,6 +1,8 @@
-# #!/bin/bash
+#!/bin/bash
 
-# set -e
+set -e
+
+VERSION_APP=1.0
 
 # FOLDER_NAME="$1"
 
@@ -31,7 +33,10 @@
 # 	echo "Không có file PDF nào trong thư mục '$FOLDER_NAME'."
 # fi
 
-echo "Running docker-compose up -d..."
+# Build NodeJs 
+sudo docker build --rm -t app:$VERSION_APP ./monitoring/backend/ || exit 1
+
+echo "Build docker stack ..."
 
 cd monitoring
 
@@ -40,3 +45,6 @@ sudo docker stack deploy -c docker-compose.yml lemp
 sudo docker ps
 
 echo "Docker containers are up and running!"
+
+
+
