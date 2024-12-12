@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  node:
+    container_name: "backend"
+    build:
+      context: ./backend
+      target: development
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules

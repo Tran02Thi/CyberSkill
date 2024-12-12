@@ -37,20 +37,20 @@ services:
       placement:
         constraints: [node.role == manager]
 
-#  node:
-#    image: backend:latest
-#    container_name: app
-#    ports:
-#       - '4000:4000'
-#    volumes:
-#       - ./backend:/app
-#       - /app/node_modules
-#    networks:
-#       - monitoring
-#    deploy:
-#      replicas: 2
-#      placement:
-#        constraints: [node.role == manager]
+  node:
+    image: app:1.0
+    container_name: app
+    ports:
+        - '8000:8000'
+    volumes:
+        - ./backend:/app
+        - /app/node_modules
+    networks:
+        - monitoring
+    deploy:
+      replicas: 2
+      placement:
+        constraints: [node.role == manager]
 
 # mysql-exporter:
 #    image: prom/mysqld-exporter
