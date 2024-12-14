@@ -12,32 +12,42 @@ import smtplib
 load_dotenv()
 
 LOG_DIR = "logs"
-# ACCESS_LOG_FILE = os.path.join(LOG_DIR, "access.log")  
-CPU_MEM_LOG_FILE = os.path.join(LOG_DIR, "cpu_mem_usage.log")  
-# ANALYZED_LOG_FILE = os.path.join(LOG_DIR, "analyzed_log.log")  
-# COMPRESSED_LOG_FILE = os.path.join(LOG_DIR, "daily_logs.gz")  
-# EMAIL_LOG_FILE = os.path.join(LOG_DIR, "email_notifications.log") 
+ACCESS_LOG_FILE = os.path.join(LOG_DIR, "access.log")
+CPU_MEM_LOG_FILE = os.path.join(LOG_DIR, "cpu_mem_usage.log")
+ANALYZED_LOG_FILE = os.path.join(LOG_DIR, "analyzed_log.log")
+COMPRESSED_LOG_FILE = os.path.join(LOG_DIR, "daily_logs.gz")
+EMAIL_LOG_FILE = os.path.join(LOG_DIR, "email_notifications.log")
 
-# ERROR_RATE_THRESHOLD = float(os.getenv("ERROR_RATE_THRESHOLD", 0.1))
+ERROR_RATE_THRESHOLD = float(os.getenv("ERROR_RATE_THRESHOLD", 0.1))
 
-# SMTP_SERVER = os.getenv("SMTP_SERVER")
-# SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
-# SMTP_USER = os.getenv("SMTP_USER")
-# SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
-# SENDER_EMAIL = os.getenv("SENDER_EMAIL")
-# RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
+SMTP_SERVER = os.getenv("SMTP_SERVER")
+SMTP_PORT = int(os.getenv("SMTP_PORT", 587))
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+SENDER_EMAIL = os.getenv("SENDER_EMAIL")
+RECEIVER_EMAIL = os.getenv("RECEIVER_EMAIL")
 
 # Logging configuration
-# os.makedirs(LOG_DIR, exist_ok=True)
-# logging.basicConfig(
-#     filename=os.path.join(LOG_DIR, "script.log"),
-#     level=logging.INFO,
-#     format="%(asctime)s - %(levelname)s - %(message)s"
-# )
+os.makedirs(LOG_DIR, exist_ok=True)
+logging.basicConfig(
+    filename=os.path.join(LOG_DIR, "script.log"),
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
-def send_email_notification(subject, body):	
+
+def send_email_notification(subject, body):
     try:
-        if not all([SMTP_SERVER, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SENDER_EMAIL, RECEIVER_EMAIL]):
+        if not all(
+            [
+                SMTP_SERVER,
+                SMTP_PORT,
+                SMTP_USER,
+                SMTP_PASSWORD,
+                SENDER_EMAIL,
+                RECEIVER_EMAIL,
+            ]
+        ):
             logging.error("SMTP configuration is incomplete. Email will not be sent.")
             return
 
@@ -61,6 +71,7 @@ def send_email_notification(subject, body):
         print(f"Unable to send email: {e}")
         raise
 
+
 # Monitor CPU and RAM usage
 def monitor_cpu_memory():
     try:
@@ -73,15 +84,19 @@ def monitor_cpu_memory():
     except Exception as e:
         logging.error(f"Error monitoring CPU and RAM: {e}")
 
+
 # Compress daily log file
 def compress_logs():
     try:
-        with open(CPU_MEM_LOG_FILE, "rb") as f_in, gzip.open(COMPRESSED_LOG_FILE, "wb") as f_out:
+        with open(CPU_MEM_LOG_FILE, "rb") as f_in, gzip.open(
+            COMPRESSED_LOG_FILE, "wb"
+        ) as f_out:
             shutil.copyfileobj(f_in, f_out)
         open(CPU_MEM_LOG_FILE, "w").close()  # Clear the original log file content
         logging.info("Logs compressed successfully.")
     except Exception as e:
         logging.error(f"Error compressing logs: {e}")
+
 
 # Analyze access logs
 def analyze_access_logs():
@@ -120,7 +135,7 @@ def analyze_access_logs():
         insights = {
             "top_ips": ip_counter.most_common(5),
             "top_endpoints": endpoint_counter.most_common(5),
-            "error_rate": error_rate
+            "error_rate": error_rate,
         }
 
         with open(ANALYZED_LOG_FILE, "w") as f:
@@ -142,12 +157,14 @@ def analyze_access_logs():
     except Exception as e:
         logging.error(f"Error analyzing access logs: {e}")
 
+
 # Worker function to continuously monitor system resources
 def monitor_worker():
     print("Script is running")
     while True:
         monitor_cpu_memory()
         time.sleep(60)  # Adjust sleep time accordingly
+
 
 if __name__ == "__main__":
     try:
