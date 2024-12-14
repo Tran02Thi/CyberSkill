@@ -1,0 +1,22 @@
+[0;1;32m●[0m docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Wed 2024-12-11 10:48:10 +07; 2 days ago
+TriggeredBy: [0;1;32m●[0m docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 723 (dockerd)
+      Tasks: 16
+     Memory: 111.7M
+        CPU: 20min 53.809s
+     CGroup: /system.slice/docker.service
+             └─723 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.499714461+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.500216902+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.500523747+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.500722861+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.500914829+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.501176162+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.501385196+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.501566329+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.501865220+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd
+Dec 13 16:30:25 vultr dockerd[723]: time="2024-12-13T16:30:25.502079947+07:00" level=error msg="error reallocating node " error="node  cannot be found" method="(*Allocator).doTaskAlloc" module=node node.id=ic6ryqw6gqmkuero8lnr0yzwd

@@ -4,21 +4,37 @@ services:
   grafana:
     image: grafana/grafana
     ports:
-      - '3001:3000'
+      - '3000:3000'
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin123
     volumes:
-    #  - ./grafana:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning-datasources.yml:/etc/grafana/provisioning/datasources/provisioning-datasources.yml
       - grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
-    networks:
-      - infra
     deploy:
       replicas: 2
       placement:
         constraints: [node.role == manager]
+    networks:
+      - infra
+      - reverse-proxy
+
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki/loki-config.yaml:/mnt/config/loki-config.yaml
+    command: -config.file=/mnt/config/loki-config.yaml
+    deploy:
+      replicas: 2
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - infra
+      - reverse-proxy
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
@@ -30,57 +46,33 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - infra
     deploy:
       replicas: 2
       placement:
         constraints: [node.role == manager]
+    networks:
+      - infra
+      - reverse-proxy
 
   node:
     image: app:1.0
-    container_name: app
     ports:
         - '8000:8000'
     volumes:
         - ./backend:/app
         - /app/node_modules
-    networks:
-        - infra
+#        - ./backend/log:/var/log/myApp
     deploy:
       replicas: 2
       placement:
         constraints: [node.role == manager]
+    networks:
+        - infra
+        - reverse-proxy
 
-# mysql-exporter:
-#    image: prom/mysqld-exporter
-#    container_name: exporter
-#   command:
-#   - --config.my-cnf=/cfg/.my.cnf
-#     - --mysqld.address=139.180.158.237:3306
-#    volumes:
-#      - "./.my.cnf:/cfg/.my.cnf"
-#    ports:
-#      - 9104:9104
-#    networks:
-#      - monitoring
-
-#  mysql:
-#    image: mysql:8.0
-#    container_name: mysql
-#    environment:
-#      - MYSQL_DATABASE=admin
-#      - MYSQL_ROOT_PASSWORD=admin123
-#    ports:
-#      - '3306:3306'
-#    volumes:
-#      - ./mysql:/var/lib/mysql
-#    networks:
-#      - monitoring
 
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
     restart: unless-stopped
     volumes:
       - ./prometheus:/etc/prometheus
@@ -88,12 +80,13 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - '9090:9090'
-    networks:
-      - infra
     deploy:
       replicas: 2
       placement:
         constraints: [node.role == manager]
+    networks:
+      - infra
+      - reverse-proxy
 
   jenkins:
     image: jenkins/jenkins:lts
@@ -102,21 +95,73 @@ services:
     ports:
       - '7080:8080'
       - '50000:50000'
-    container_name: jenkins
     volumes:
       - ./jenkins/jenkins-data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/local/bin/docker:/usr/local/bin/docker
-    networks:
-      - infra
     deploy:
       replicas: 2
       placement:
         constraints: [node.role == manager]
+    networks:
+      - infra
+      - reverse-proxy
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    env_file:
+      - .env
+    volumes:
+      - ./minio/data:/data
+    command: server ~ --address ':9000' --console-address ':9001'
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - infra
+      - reverse-proxy
+
+  createBuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+        echo 'Waiting for 15 seconds for MinIO to start...';
+        sleep 20;
+        echo 'Configuring mc.. ${MINIO_ROOT_USER}';
+        /usr/bin/mc config host add log http://139.180.158.237:9000/ ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
+        echo 'Removing old bucket...';
+        /usr/bin/mc rm -r --force log/loki;
+        echo 'Creating new bucket...';
+        /usr/bin/mc mb log/loki;
+        echo 'Setting public policy...';
+        /usr/bin/mc policy set public log/loki;
+        exit 0;
+      "
+    env_file:
+      - .env
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: none
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - infra
+      - reverse-proxy
 
 
 networks:
   infra:
+    name: infra
+  reverse-proxy:
+    external: true
 
 volumes:
   grafana-data:
