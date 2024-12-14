@@ -113,10 +113,8 @@ services:
       - "9000:9000"
       - "9001:9001"
     environment:
-      MINIO_ROOT_USER: ${MINIO_USER_ROOT}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-    volumes:
-      - ./minio/data:/data
+      - MINIO_ROOT_USER=${MINIO_USER_ROOT}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
     command: server ~ --address ':9000' --console-address ':9001'
     deploy:
       replicas: 1
