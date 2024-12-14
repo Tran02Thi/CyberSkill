@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.9.6
+    command:
+      - --api.dashboard=true
+      - --providers.docker.swarmMode=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --api.insecure=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=reverse-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - ./config/traefik.toml:/traefik.toml
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8081:8080'
+    networks:
+      - reverse-proxy
+
+networks:
+  reverse-proxy:
+    external: true
+
