@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+
   grafana:
     image: grafana/grafana
     ports:
@@ -61,7 +62,6 @@ services:
     volumes:
         - ./backend:/app
         - /app/node_modules
-#        - ./backend/log:/var/log/myApp
     deploy:
       replicas: 2
       placement:
@@ -88,32 +88,33 @@ services:
       - infra
       - reverse-proxy
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    privileged: true
-    user: root
-    ports:
-      - '7080:8080'
-      - '50000:50000'
-    volumes:
-      - ./jenkins/jenkins-data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/local/bin/docker:/usr/local/bin/docker
-    deploy:
-      replicas: 2
-      placement:
-        constraints: [node.role == manager]
-    networks:
-      - infra
-      - reverse-proxy
+  # jenkins:
+  #   image: jenkins/jenkins:lts
+  #   privileged: true
+  #   user: root
+  #   ports:
+  #     - '7080:8080'
+  #     - '50000:50000'
+  #   volumes:
+  #     - ./jenkins/jenkins-data:/var/jenkins_home
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /usr/local/bin/docker:/usr/local/bin/docker
+  #   deploy:
+  #     replicas: 2
+  #     placement:
+  #       constraints: [node.role == manager]
+  #   networks:
+  #     - infra
+  #     - reverse-proxy
 
   minio:
     image: minio/minio:latest
     ports:
       - "9000:9000"
       - "9001:9001"
-    env_file:
-      - .env
+    environment:
+      MINIO_ROOT_USER: ${MINIO_USER_ROOT}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
       - ./minio/data:/data
     command: server ~ --address ':9000' --console-address ':9001'
@@ -143,8 +144,6 @@ services:
         /usr/bin/mc policy set public log/loki;
         exit 0;
       "
-    env_file:
-      - .env
     deploy:
       mode: replicated
       replicas: 1
