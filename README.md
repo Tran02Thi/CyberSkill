@@ -108,15 +108,15 @@ export MINIO_ROOT_USER=admin
 ```
 We will project structured like that
 
-![alt text](img\project_structure.png)
+![image](./img/project_structure.png)
 
 and content Dockerfile that:
 
-![alt text](img\nodejs_dockerfile.png)
+![image](./img/nodejs_dockerfile.png)
 
 , docker-compose.yml: 
 
-![alt text](img\nodejs_dockercompose.png)
+![image](./img/nodejs_dockercompose.png)
 
 
 We will use the following command to deploy the application using Docker Swarm:
