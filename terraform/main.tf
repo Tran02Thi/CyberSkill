@@ -39,8 +39,3 @@ resource "docker_container" "minio" {
   ]
   command = ["server", "/data", "--console-address", ":9001"]
 }
-
-# Tạo volume để lưu trữ dữ liệu MinIO
-# resource "docker_volume" "minio_data" {
-#   name = "minio_data"
-# }
