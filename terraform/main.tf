@@ -34,8 +34,8 @@ resource "docker_container" "minio" {
     name = docker_network.backend.name
   }
   env = [
-    "MINIO_ACCESS_KEY=admin",
-    "MINIO_SECRET_KEY=admin123"
+    "MINIO_ACCESS_KEY=${var.MINIO_ROOT_USER}",
+    "MINIO_SECRET_KEY=${var.MINIO_ROOT_PASSWORD}"
   ]
   command = ["server", "/data", "--console-address", ":9001"]
 }
