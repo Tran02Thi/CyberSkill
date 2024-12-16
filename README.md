@@ -136,10 +136,10 @@ The entire CI/CD process is handled by the script `scripts.sh`. This script auto
 Once the deployment is complete, you can access at:
 
 - nodejs:
-[http://139.180.158.237:8000/](https://nodejs)
+  https://app.therops.blog/
 
 - grafana:
-[http://139.180.158.237:3000/](https://grafana)
+  https://monitor.therops.blog/
 
 - loki:
 [http://139.180.158.237:3100/](https://loki)
@@ -151,7 +151,7 @@ Once the deployment is complete, you can access at:
 [http://139.180.158.237:9090/](https://prometheus)
 
 - minio:
-[http://139.180.158.237:9091/](https://minio)
+  https://stored.therops.blog/login
 
 
 
