@@ -153,7 +153,8 @@ Once the deployment is complete, you can access at:
 - minio:
   https://stored.therops.blog/login
 
-
+user: admin
+password: admin
 
 ```
 4. Lab 4 (15%)
