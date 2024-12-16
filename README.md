@@ -229,7 +229,7 @@ terraform apply
 ### Step 4: Access Minio
 Once the infrastructure is provisioned, access the application using:
 
-[http://139.180.158.237:9000/](https://)
+https://stored.therops.blog/login
 
 ---
 
